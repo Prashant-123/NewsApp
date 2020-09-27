@@ -9,7 +9,6 @@ import com.newsapp.data.remote.BaseResponse
 import com.newsapp.data.remote.NewsAPI
 import com.newsapp.data.remote.Resource
 import kotlinx.coroutines.Dispatchers
-import timber.log.Timber
 import javax.inject.Inject
 
 class NewsRepository @Inject constructor(
@@ -23,17 +22,19 @@ class NewsRepository @Inject constructor(
         val local = { newsDao.getAllHeadlines() }.invoke().map { Resource.success(it) }
         emitSource(local)
 
-        val response = suspend { getApiResponse { newsAPI.getHeadlines() } }.invoke()
-
-        Timber.d(response.data.toString())
-
-        if (response.status == Resource.Status.SUCCESS) {
-            response.data?.articles?.let { newsDao.upsertAll(it) }
-        }
-
-        response.message?.let {
-            emit(Resource.error(it))
-            emitSource(local)
-        }
+//        val response = suspend { getApiResponse { newsAPI.getHeadlines() } }.invoke()
+//
+//        if (response.status == Resource.Status.SUCCESS) {
+//            response.data?.articles?.let { newsDao.upsertAll(it) }
+//        }
+//
+//        response.message?.let {
+//            emit(Resource.error(it))
+//            emitSource(local)
+//        }
     }
+
+    fun getNewsById(newsId: Int): LiveData<News> = liveData(Dispatchers.IO) { emitSource(newsDao.getNewsById(id = newsId)) }
+
+    fun bookmarkNews(id: Int) = newsDao.addBookmark(id)
 }

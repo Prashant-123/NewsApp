@@ -20,6 +20,9 @@ interface NewsDao {
     @Query("SELECT * FROM news WHERE id = :id")
     fun getNewsById(id: Int) : LiveData<News>
 
-    @Query("SELECT * FROM news WHERE isBookmarked = 'true'")
+    @Query("SELECT * FROM news WHERE isBookmarked = '1'")
     fun getBookmarkedNews() : LiveData<List<News>>
+
+    @Query("UPDATE news SET isBookmarked = 1 WHERE id = :id")
+    fun addBookmark(id: Int)
 }
