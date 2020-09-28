@@ -1,15 +1,15 @@
 package com.newsapp.ui.main.headlines
 
-import android.graphics.Color
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.transition.MaterialElevationScale
 import com.newsapp.R
 import com.newsapp.data.remote.Resource.Status.*
 import com.newsapp.databinding.FragmentHeadlinesBinding
@@ -27,8 +27,6 @@ class HeadlinesFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        setToolbar()
-        exitTransition = MaterialElevationScale(true)
         binding = FragmentHeadlinesBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -42,13 +40,14 @@ class HeadlinesFragment : Fragment() {
 
     private fun setupRecyclerView() {
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
-        adapter = HeadlinesAdapter { news, imageView ->
+        adapter = HeadlinesAdapter(viewModel) { news, imageView ->
             val extras = FragmentNavigatorExtras(
                 imageView to "imageView",
             )
             findNavController().navigate(
-                R.id.action_headlinesFragment_to_newsDetailFragment,
-                bundleOf("id" to news.id), null, extras)
+                R.id.action_viewPagerFragment_to_newsDetailFragment,
+                bundleOf("id" to news.id), null, extras
+            )
         }
 
         binding.swipeRefreshLayout.setOnRefreshListener { setViewModelObservers() }
@@ -60,23 +59,23 @@ class HeadlinesFragment : Fragment() {
         viewModel.headlines.observe(viewLifecycleOwner, {
             when (it.status) {
                 SUCCESS -> {
-                    it.data?.let { adapter.addNews(it) }
+                    if (!it.data.isNullOrEmpty()) {
+                        adapter.addNews(it.data)
+                        binding.progressbar.visibility = View.GONE
+                    }
+
                     binding.swipeRefreshLayout.isRefreshing = false
                 }
                 ERROR -> {
                     binding.swipeRefreshLayout.isRefreshing = false
+                    binding.progressbar.visibility = View.GONE
                 }
 
                 LOADING -> {
                     binding.swipeRefreshLayout.isRefreshing = false
+                    binding.progressbar.visibility = View.VISIBLE
                 }
             }
         })
-    }
-
-    private fun setToolbar() {
-        val window: Window = requireActivity().window
-        window.statusBarColor = Color.BLACK
-        window.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
     }
 }

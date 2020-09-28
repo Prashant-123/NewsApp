@@ -1,4 +1,4 @@
-package com.newsapp.ui.main.headlines
+package com.newsapp.ui.main.bookmarks
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -10,11 +10,12 @@ import com.newsapp.data.entities.News
 import com.newsapp.databinding.ItemHeadlineBinding
 import com.newsapp.utils.Converters
 import kotlinx.android.synthetic.main.item_headline.view.*
+import timber.log.Timber
 
-class HeadlinesAdapter(
-    private val viewModel: HeadlinesViewModel,
+class BookmarksAdapter(
+    private val viewModel: BookmarksViewModel,
     private val itemClickListener: (News, ImageView) -> Unit
-) : RecyclerView.Adapter<HeadlinesAdapter.MyViewHolder>() {
+) : RecyclerView.Adapter<BookmarksAdapter.MyViewHolder>() {
 
     private var itemList = ArrayList<News>()
 
@@ -54,6 +55,8 @@ class HeadlinesAdapter(
         itemHeadlineBinding.root
     ) {
         fun bind(news: News) {
+            Timber.d(news.urlToImage)
+
             itemHeadlineBinding.tvHeading.text = news.title
             itemHeadlineBinding.tvSource.text = news.source.name
             itemHeadlineBinding.tvTimestamp.text = Converters.parseTimestamp(news.publishedAt!!)

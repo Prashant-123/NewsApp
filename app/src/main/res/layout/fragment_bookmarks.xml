@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.main.headlines.HeadlinesFragment">
+    android:layout_height="match_parent">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -23,37 +23,50 @@
             android:fontFamily="@font/roboto_slab_bold"
             android:gravity="center"
             android:letterSpacing="0.08"
-            android:text="@string/headlines"
+            android:text="@string/bookmarks"
             android:textAllCaps="true"
             android:textColor="@color/white"
             android:textSize="@dimen/sp_29sp" />
     </androidx.appcompat.widget.Toolbar>
 
-    <ProgressBar
-        android:id="@+id/progressbar"
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/noResultLottie"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/dp_240dp"
+        android:visibility="gone"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_rawRes="@raw/no_result" />
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/swipeRefreshLayout"
+    <TextView
+        android:id="@+id/tvNoResult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_slab_bold"
+        android:visibility="visible"
+        android:elevation="@dimen/dp_240dp"
+        android:padding="@dimen/dp_12dp"
+        android:text="@string/no_result"
+        android:textColor="@color/grey"
+        android:layout_marginTop="@dimen/dp_24dp"
+        android:textSize="@dimen/sp_18sp"
+        app:layout_constraintEnd_toEndOf="@+id/noResultLottie"
+        app:layout_constraintStart_toStartOf="@id/noResultLottie"
+        app:layout_constraintTop_toBottomOf="@+id/noResultLottie" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        tools:listitem="@layout/item_headline"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:listitem="@layout/item_headline" />
-
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

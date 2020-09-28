@@ -1,4 +1,4 @@
-package com.newsapp.ui.main.headlines
+package com.newsapp.ui.main.bookmarks
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
@@ -7,12 +7,13 @@ import com.newsapp.data.repositories.NewsRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class HeadlinesViewModel @ViewModelInject constructor(
+class BookmarksViewModel @ViewModelInject constructor(
     private val repository: NewsRepository
 ) : ViewModel() {
 
-    val headlines = repository.getHeadlines()
+    val bookmarks = repository.getBookmarkedNews()
 
+    // Coroutine for making DB operations smooth
     fun bookmarkNews(id: Int, isBookmarked: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             repository.bookmarkNews(id, isBookmarked)

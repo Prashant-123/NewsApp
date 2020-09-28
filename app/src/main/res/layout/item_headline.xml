@@ -26,8 +26,9 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.checkbox.MaterialCheckBox
-            android:layout_width="28dp"
-            android:layout_height="28dp"
+            android:id="@+id/bookmarkCheckbox"
+            android:layout_width="@dimen/dp_28dp"
+            android:layout_height="@dimen/dp_28dp"
             android:padding="@dimen/dp_0dp"
             android:layout_margin="@dimen/dp_8dp"
             android:button="@null"

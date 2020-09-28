@@ -13,13 +13,14 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import javax.inject.Singleton
 
 
 @Module
 @InstallIn(ApplicationComponent::class)
 object NetworkModule {
     @Provides
-    fun provideBaseUrl() : String {
+    fun provideBaseUrl(): String {
         return ApiConstants.BASE_URL
     }
 
@@ -28,7 +29,7 @@ object NetworkModule {
         val logger = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
         val okHttpClient = OkHttpClient.Builder()
 
-        // Add API KEY to all requests
+        // Add API KEY and Constant Query Params to all requests
         okHttpClient.addInterceptor(logger).addInterceptor { chain ->
             val original = chain.request()
             val originalHttpUrl = original.url
@@ -56,13 +57,13 @@ object NetworkModule {
         return Retrofit.Builder()
             .baseUrl(baseUrl)
             .addConverterFactory(converterFactory)
-            .client(okHttpClient).
-            build()
+            .client(okHttpClient).build()
     }
 
     @Provides
     fun providesNewsApi(retrofit: Retrofit): NewsAPI = retrofit.create(NewsAPI::class.java)
 
+    @Singleton
     @Provides
     fun providesNewsRepo(local: NewsDao, remote: NewsAPI): NewsRepository = NewsRepository(
         local,

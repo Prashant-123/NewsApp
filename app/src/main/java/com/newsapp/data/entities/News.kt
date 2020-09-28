@@ -5,7 +5,7 @@ import androidx.room.Index
 import androidx.room.PrimaryKey
 
 // URL to check Unique news
-@Entity(tableName = "news", indices = arrayOf(Index(value = ["url"], unique = true)))
+@Entity(tableName = "news", indices = [Index(value = ["url"], unique = true)])
 data class News (
     @PrimaryKey(autoGenerate = true)
     val id: Int? = null,
@@ -16,7 +16,7 @@ data class News (
     val urlToImage: String?,
     val publishedAt: String?,
     val content: String?,
-    val isBookmarked: Boolean
+    var isBookmarked: Boolean
 )
 
 data class Source (

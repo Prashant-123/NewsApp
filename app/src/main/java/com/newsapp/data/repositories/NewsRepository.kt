@@ -22,19 +22,21 @@ class NewsRepository @Inject constructor(
         val local = { newsDao.getAllHeadlines() }.invoke().map { Resource.success(it) }
         emitSource(local)
 
-//        val response = suspend { getApiResponse { newsAPI.getHeadlines() } }.invoke()
-//
-//        if (response.status == Resource.Status.SUCCESS) {
-//            response.data?.articles?.let { newsDao.upsertAll(it) }
-//        }
-//
-//        response.message?.let {
-//            emit(Resource.error(it))
-//            emitSource(local)
-//        }
+        val response = suspend { getApiResponse { newsAPI.getHeadlines() } }.invoke()
+
+        if (response.status == Resource.Status.SUCCESS) {
+            response.data?.articles?.let { newsDao.upsertAll(it) }
+        }
+
+        response.message?.let {
+            emit(Resource.error(it))
+            emitSource(local)
+        }
     }
 
     fun getNewsById(newsId: Int): LiveData<News> = liveData(Dispatchers.IO) { emitSource(newsDao.getNewsById(id = newsId)) }
 
-    fun bookmarkNews(id: Int) = newsDao.addBookmark(id)
+    fun getBookmarkedNews(): LiveData<List<News>> = liveData(Dispatchers.IO) { emitSource(newsDao.getBookmarkedNews()) }
+
+    fun bookmarkNews(id: Int, isBookmarked: Int) = newsDao.addBookmark(id, isBookmarked)
 }

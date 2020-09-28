@@ -10,6 +10,6 @@ class NewsDetailViewModel @ViewModelInject constructor(
 
     fun getNewsById(newsId: Int) = newsRepository.getNewsById(newsId)
 
-    fun bookmarkNews(newsId: Int) = newsRepository.bookmarkNews(newsId)
+//    fun bookmarkNews(newsId: Int) = newsRepository.bookmarkNews(newsId)
 
 }
