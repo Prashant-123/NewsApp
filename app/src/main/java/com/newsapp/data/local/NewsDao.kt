@@ -10,8 +10,10 @@ import com.newsapp.data.entities.News
 @Dao
 interface NewsDao {
 
-    // Insert or Update
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    /*
+     * IGNORE if same news coming based on URL (If REPLACED: bookmarks will be cleared bcz of default 0 column value)
+     */
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun upsertAllHeadlines(news: List<News>)
 
     @Query("SELECT * FROM news order by publishedAt desc")
@@ -24,5 +26,5 @@ interface NewsDao {
     fun getBookmarkedNews() : LiveData<List<News>>
 
     @Query("UPDATE news SET isBookmarked = :isBookmarked WHERE id = :id")
-    fun addBookmark(id: Int, isBookmarked: Int)
+    fun addBookmark(id: Int, isBookmarked: Int): Int
 }

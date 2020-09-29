@@ -67,7 +67,9 @@ dependencies {
     testImplementation "junit:junit:$junit_version"
     testImplementation "android.arch.core:core-testing:$core_testing_version"
     testImplementation "io.mockk:mockk:$mockk_version"
+    testImplementation "com.google.truth:truth:$truth_version"
 
+    androidTestImplementation "androidx.navigation:navigation-testing:$nav_version"
     androidTestImplementation "android.arch.core:core-testing:$core_testing_version"
     androidTestImplementation "io.mockk:mockk:$mockk_version"
     androidTestImplementation "com.google.truth:truth:$truth_version"

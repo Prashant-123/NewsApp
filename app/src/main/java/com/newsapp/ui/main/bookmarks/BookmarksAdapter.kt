@@ -33,13 +33,17 @@ class BookmarksAdapter(
         holder.bind(current)
         holder.itemView.setOnClickListener { itemClickListener(current, holder.itemView.imageView) }
 
-        holder.itemView.bookmarkCheckbox.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
+        holder.itemView.bookmarkCheckbox.setOnClickListener(null)
+        holder.itemView.bookmarkCheckbox.isChecked = current.isBookmarked
+
+        holder.itemView.bookmarkCheckbox.setOnClickListener {
+            current.isBookmarked = holder.itemView.bookmarkCheckbox.isChecked
+
+            if (current.isBookmarked) {
                 viewModel.bookmarkNews(current.id!!, 1)
             } else {
                 viewModel.bookmarkNews(current.id!!, 0)
             }
-            current.isBookmarked = isChecked
         }
     }
 
