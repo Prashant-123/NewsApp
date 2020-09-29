@@ -25,7 +25,7 @@ class NewsRepository @Inject constructor(
         val response = suspend { getApiResponse { newsAPI.getHeadlines() } }.invoke()
 
         if (response.status == Resource.Status.SUCCESS) {
-            response.data?.articles?.let { newsDao.upsertAll(it) }
+            response.data?.articles?.let { newsDao.upsertAllHeadlines(it) }
         }
 
         response.message?.let {

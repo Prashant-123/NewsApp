@@ -12,7 +12,7 @@ interface NewsDao {
 
     // Insert or Update
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun upsertAll(news: List<News>)
+    fun upsertAllHeadlines(news: List<News>)
 
     @Query("SELECT * FROM news order by publishedAt desc")
     fun getAllHeadlines() : LiveData<List<News>>

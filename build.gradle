@@ -23,6 +23,9 @@ buildscript {
     ext.lottie_version = "3.4.1"
     ext.timber = "4.7.1"
     ext.room_version = "2.2.5"
+    ext.mockk_version = "1.10.2"
+    ext.truth_version = "1.0.1"
+    ext.core_testing_version = "1.1.1"
 
     repositories {
         google()
