@@ -40,7 +40,7 @@ class NewsDetailFragment : Fragment() {
         val newsId = arguments?.getInt("id", 0)!!
 
         viewModel.getNewsById(newsId).observe(viewLifecycleOwner, {
-            binding.tvTitle.text = it.title
+            binding.tvDetailsTitle.text = it.title
             binding.tvSource.text = it.source.name
             binding.tvTimestamp.text = Converters.parseTimestamp(it.publishedAt!!)
             binding.description.text = it.description

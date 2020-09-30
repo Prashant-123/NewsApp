@@ -7,7 +7,7 @@
     tools:context=".ui.main.headlines.HeadlinesFragment">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+        android:id="@+id/toolbarHeadlines"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_60dp"
         android:background="@color/black"
@@ -46,10 +46,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+        app:layout_constraintTop_toBottomOf="@+id/toolbarHeadlines">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
+            android:id="@+id/recyclerViewHeadlines"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:listitem="@layout/item_headline" />

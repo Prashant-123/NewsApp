@@ -39,7 +39,7 @@ class BookmarksFragment : Fragment() {
 
 
     private fun setupRecyclerView() {
-        binding.recyclerView.layoutManager = LinearLayoutManager(context)
+        binding.recyclerViewBookmarks.layoutManager = LinearLayoutManager(context)
         adapter = BookmarksAdapter(viewModel) { news, imageView ->
             findNavController().navigate(
                 R.id.action_viewPagerFragment_to_newsDetailFragment,
@@ -47,18 +47,18 @@ class BookmarksFragment : Fragment() {
             )
         }
 
-        binding.recyclerView.adapter = adapter
+        binding.recyclerViewBookmarks.adapter = adapter
     }
 
     private fun setViewModelObservers() {
         viewModel.bookmarks.observe(viewLifecycleOwner, {
             if (it.isNullOrEmpty()) {
-                binding.recyclerView.visibility = View.GONE
+                binding.recyclerViewBookmarks.visibility = View.GONE
 
                 binding.noResultLottie.visibility = View.VISIBLE
                 binding.tvNoResult.visibility = View.VISIBLE
             } else {
-                binding.recyclerView.visibility = View.VISIBLE
+                binding.recyclerViewBookmarks.visibility = View.VISIBLE
 
                 binding.noResultLottie.visibility = View.GONE
                 binding.tvNoResult.visibility = View.GONE

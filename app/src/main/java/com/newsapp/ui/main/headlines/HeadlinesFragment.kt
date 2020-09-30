@@ -39,7 +39,7 @@ class HeadlinesFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        binding.recyclerView.layoutManager = LinearLayoutManager(context)
+        binding.recyclerViewHeadlines.layoutManager = LinearLayoutManager(context)
         adapter = HeadlinesAdapter(viewModel) { news, imageView ->
             val extras = FragmentNavigatorExtras(
                 imageView to "imageView",
@@ -52,7 +52,7 @@ class HeadlinesFragment : Fragment() {
 
         binding.swipeRefreshLayout.setOnRefreshListener { setViewModelObservers() }
 
-        binding.recyclerView.adapter = adapter
+        binding.recyclerViewHeadlines.adapter = adapter
     }
 
     private fun setViewModelObservers() {
