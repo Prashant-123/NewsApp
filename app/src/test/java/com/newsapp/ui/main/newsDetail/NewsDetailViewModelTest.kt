@@ -1,4 +1,4 @@
-package com.newsapp.ui.main.headlines
+package com.newsapp.ui.main.newsDetail
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
@@ -6,7 +6,6 @@ import com.google.common.truth.Truth.assertThat
 import com.newsapp.data.entities.News
 import com.newsapp.data.entities.Source
 import com.newsapp.data.repositories.NewsRepository
-import com.newsapp.ui.main.newsDetail.NewsDetailViewModel
 import com.newsapp.utils.getOrAwaitValue
 import io.mockk.every
 import io.mockk.mockk

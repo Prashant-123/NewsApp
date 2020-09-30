@@ -1,4 +1,4 @@
-package com.newsapp.ui.main.headlines
+package com.newsapp.ui.main.bookmarks
 
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.*
@@ -11,6 +11,9 @@ import androidx.test.filters.LargeTest
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import com.newsapp.R
 import com.newsapp.ui.main.MainActivity
+import com.newsapp.ui.main.headlines.HeadlinesAdapter
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.runBlocking
 import org.hamcrest.Matchers.not
 import org.junit.Rule
 import org.junit.Test
@@ -41,6 +44,9 @@ class BookmarksFragmentTest {
         onView(withId(R.id.viewPager)).check(matches(isDisplayed())).perform(swipeLeft())
 
         onView(withId(R.id.toolbarBookmarks)).check(matches(isDisplayed()))
+
+        // Init Recycler if any bookmark exist
+        runBlocking { delay(500) }
 
         try {
             // Case: When atleast 1 bookmark exist
